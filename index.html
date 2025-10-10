@@ -52,7 +52,7 @@
       padding: 12px 18px;
       box-shadow: var(--shadow);
       position: relative;
-      overflow: hidden;
+      overflow: visible; /* Changed from hidden to visible */
     }
     
     /* Animated GIF Background */
@@ -95,7 +95,7 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: var(--transition);
       border: 2px solid transparent;
-      z-index: 3;
+      z-index: 10;
       backdrop-filter: blur(5px);
     }
     
@@ -140,124 +140,137 @@
       transform: scale(1.02);
       background: white;
     }
-
+    
     .server {
-    font-weight: 700;
-    position: relative;
-    padding: 8px 15px;
-    border-radius: 12px;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: var(--transition);
-    z-index: 1000; /* Increased z-index */
-    backdrop-filter: blur(5px);
-}
-
-.server:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
-}
-
-.custom-select {
-    position: relative;
-    display: inline-block;
-    min-width: 180px;
-    z-index: 1001; /* Increased z-index */
-}
-
-.select-selected {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 10px;
-    border: 2px solid #222;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: var(--transition);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(5px);
-}
-
-.select-selected:hover {
-    border-color: var(--green);
-    box-shadow: 0 0 8px rgba(0, 210, 56, 0.3);
-    background: white;
-}
-
-.select-selected:after {
-    content: "▼";
-    font-size: 12px;
-    transition: var(--transition);
-}
-
-.select-selected.select-arrow-active:after {
-    transform: rotate(180deg);
-}
-
-.select-items {
-    position: absolute;
-    background-color: white;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1002; /* Increased z-index - highest */
-    border-radius: 10px;
-    border: 2px solid #222;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    box-shadow: var(--shadow);
-}
-
-.select-items.active {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.select-items div {
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.select-items div:hover {
-    background-color: rgba(0, 210, 56, 0.1);
-}
-
-.container {
-    max-width: 480px;
-    margin: 18px auto;
-    padding: 12px;
-    background: linear-gradient(#1aff66, #1baf43);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    position: relative;
-    z-index: 1; /* Lower z-index for container */
-}
-
-.panel {
-    background: var(--card);
-    padding: 18px;
-    border-radius: 28px;
-    box-shadow: 0 8px 0 rgba(0,0,0,0.25);
-    position: relative;
-    z-index: 1; /* Lower z-index for panel */
-}
-
-/* Status element ko bhi lower z-index dena hai */
-#status {
-    position: relative;
-    z-index: 1;
-}   
-
+      font-weight: 700;
+      position: relative;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      z-index: 1000; /* High z-index to appear above everything */
+      backdrop-filter: blur(5px);
+    }
+    
+    .server:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
+    }
+    
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      min-width: 180px;
+      z-index: 1001; /* Higher than server */
+    }
+    
+    .select-selected {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      border: 2px solid #222;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .select-selected:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 8px rgba(0, 210, 56, 0.3);
+      background: white;
+    }
+    
+    .select-selected:after {
+      content: "▼";
+      font-size: 12px;
+      transition: var(--transition);
+    }
+    
+    .select-selected.select-arrow-active:after {
+      transform: rotate(180deg);
+    }
+    
+    /* FIXED: Server list with high z-index and animation */
+    .select-items {
+      position: absolute;
+      background-color: white;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1002; /* Highest z-index to appear above everything */
+      border-radius: 10px;
+      border: 2px solid #222;
+      display: none;
+      overflow-y: auto;
+      box-shadow: var(--shadow);
+      transform: scale(0.95);
+      opacity: 0;
+      transition: all 0.3s ease;
+      transform-origin: top center;
+    }
+    
+    .select-items.active {
+      display: block;
+      max-height: 300px;
+      transform: scale(1);
+      opacity: 1;
+      animation: popIn 0.3s ease-out;
+    }
+    
+    @keyframes popIn {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .select-items div {
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .select-items div:hover {
+      background-color: rgba(0, 210, 56, 0.1);
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 18px auto;
+      padding: 12px;
+      background: linear-gradient(#1aff66, #1baf43);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 1; /* Lower z-index so server list appears above */
+    }
+    
+    .panel {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 28px;
+      box-shadow: 0 8px 0 rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 1; /* Lower z-index */
+    }
     
     h2 {
       font-size: 28px;
       text-align: center;
       margin: 8px 0 18px;
       font-weight: 700;
+      position: relative;
+      z-index: 1; /* Lower z-index */
     }
     
     /* Fixed Grid Layout */
@@ -286,12 +299,12 @@
       min-height: 0;
     }
     
-      .diamond img {
+    .diamond img {
       width: 100%;
       height: 80px;
       object-fit: contain;
       transition: var(--transition);
-      }
+    }
     
     .diamond.selected {
       border-color: #00ff00;
@@ -466,7 +479,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 2000;
       opacity: 0;
       visibility: hidden;
       transition: var(--transition);
@@ -488,7 +501,7 @@
       transform: translateY(20px);
       transition: var(--transition);
       position: relative;
-      z-index: 1001;
+      z-index: 2001;
     }
     
     .popup-overlay.active .popup {
@@ -557,7 +570,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 999;
+      z-index: 1500;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -648,7 +661,7 @@
     <div class="server">
       <label style="display:block;font-size:14px">Select Server</label>
       <div class="custom-select">
-        <div class="select-selected">INDIA</div>
+        <div class="select-selected">Select Server</div> <!-- Changed from INDIA to Select Server -->
         <div class="select-items">
           <div data-value="INDIA">INDIA</div>
           <div data-value="BRAZIL">BRAZIL</div>
@@ -713,7 +726,7 @@
     </div>
   </main>
 
-  <footer>FF Secret Diamond Store — Complete all the steps only then it will work.</footer>
+  <footer>FF Secret Diamond Store — Complete all the steps only then it will work Properly✅.</footer>
 
   <!-- Popup Overlays -->
   <div class="popup-overlay" id="alertPopup">
@@ -787,7 +800,59 @@
     window.addEventListener('load', () => {
       checkTimerStatus();
       loadExistingData();
+      initializeServerDropdown();
     });
+    
+    // Improved server dropdown initialization
+    function initializeServerDropdown() {
+      // Ensure server list is hidden on startup
+      selectItems.classList.remove('active');
+      selectSelected.classList.remove('select-arrow-active');
+      
+      // Toggle dropdown visibility with animation
+      selectSelected.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isActive = selectItems.classList.contains('active');
+        
+        // Close any other open dropdowns
+        document.querySelectorAll('.select-items.active').forEach(item => {
+          if (item !== selectItems) {
+            item.classList.remove('active');
+            item.previousElementSibling.classList.remove('select-arrow-active');
+          }
+        });
+        
+        // Toggle current dropdown
+        selectItems.classList.toggle('active');
+        this.classList.toggle('select-arrow-active');
+      });
+      
+      // Select option
+      selectOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.stopPropagation();
+          selectSelected.textContent = this.textContent;
+          selectItems.classList.remove('active');
+          selectSelected.classList.remove('select-arrow-active');
+        });
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!customSelect.contains(e.target)) {
+          selectItems.classList.remove('active');
+          selectSelected.classList.remove('select-arrow-active');
+        }
+      });
+      
+      // Close dropdown on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          selectItems.classList.remove('active');
+          selectSelected.classList.remove('select-arrow-active');
+        }
+      });
+    }
     
     // Download Button Click
     downloadBtn.addEventListener('click', () => {
@@ -873,28 +938,6 @@
       }, 3000);
     });
     
-    // Custom Select Functionality
-    selectSelected.addEventListener('click', () => {
-      selectItems.classList.toggle('active');
-      selectSelected.classList.toggle('select-arrow-active');
-    });
-    
-    selectOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        selectSelected.textContent = option.textContent;
-        selectItems.classList.remove('active');
-        selectSelected.classList.remove('select-arrow-active');
-      });
-    });
-    
-    // Close popups when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!customSelect.contains(e.target)) {
-        selectItems.classList.remove('active');
-        selectSelected.classList.remove('select-arrow-active');
-      }
-    });
-    
     // Alert Popup Controls
     closeAlert.addEventListener('click', () => {
       alertPopup.classList.remove('active');
@@ -973,6 +1016,9 @@
       
       // Reset UID field
       document.getElementById('uid').value = "";
+      
+      // Reset server selection
+      selectSelected.textContent = "Select Server";
     }
     
     function generateRedeemCode() {
