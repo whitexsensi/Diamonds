@@ -51,12 +51,73 @@
       justify-content: space-between;
       padding: 12px 18px;
       box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Animated GIF Background */
+    .topbar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUycW54ZnJ4YXBucDZhaHVpdW12YWc0c21vd2dsajZmODB4b21qcjA2bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/20XFN3vWiU79fBQgBc/giphy.gif') center/cover;
+      opacity: 0.4;
+      z-index: 1;
+    }
+    
+    .topbar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 210, 56, 0.1), transparent);
+      transition: left 0.6s ease;
+      z-index: 2;
+    }
+    
+    .topbar:hover::after {
+      left: 100%;
     }
     
     .uid {
       display: flex;
       gap: 12px;
       align-items: center;
+      position: relative;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      z-index: 3;
+      backdrop-filter: blur(5px);
+    }
+    
+    .uid:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      border-color: rgba(0, 210, 56, 0.3);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
+    }
+    
+    .uid img {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #e0e0e0;
+      transition: var(--transition);
+    }
+    
+    .uid:hover img {
+      border-color: var(--green);
+      transform: scale(1.05);
     }
     
     input[type=text] {
@@ -67,27 +128,46 @@
       width: 260px;
       font-family: 'Poppins', sans-serif;
       transition: var(--transition);
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 3;
+      position: relative;
     }
     
     input[type=text]:focus {
       border-color: var(--green);
       outline: none;
       box-shadow: 0 0 10px rgba(0, 210, 56, 0.5);
+      transform: scale(1.02);
+      background: white;
     }
     
     .server {
       font-weight: 700;
       position: relative;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      z-index: 3;
+      backdrop-filter: blur(5px);
+    }
+    
+    .server:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
     }
     
     .custom-select {
       position: relative;
       display: inline-block;
       min-width: 180px;
+      z-index: 3;
     }
     
     .select-selected {
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
       border: 2px solid #222;
       padding: 10px 15px;
@@ -97,6 +177,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .select-selected:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 8px rgba(0, 210, 56, 0.3);
+      background: white;
     }
     
     .select-selected:after {
@@ -162,28 +249,36 @@
       font-weight: 700;
     }
     
+    /* Fixed Grid Layout */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 12px;
+      width: 100%;
     }
     
     .diamond {
       background: #fff;
       border-radius: 10px;
-      padding: 6px;
-      border: 2px solid rgba(255,255,255,0.6);
+      padding: 8px;
+      border: 4px solid rgba(255,255,255,0.6);
       box-shadow: 4px 8px 0 rgba(0,0,0,0.15);
       text-align: center;
       cursor: pointer;
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1/1;
+      min-height: 0;
     }
     
     .diamond img {
       width: 100%;
-      height: 100px;
+      height: auto;
+      max-height: 80px;
       object-fit: contain;
       transition: var(--transition);
     }
@@ -291,6 +386,14 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      transition: var(--transition);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    
+    .method-box label:hover {
+      background: rgba(0, 210, 56, 0.1);
+      transform: translateY(-2px);
     }
     
     .hidden {
@@ -475,9 +578,11 @@
       min-height: 20px;
     }
     
+    /* Mobile Responsive */
     @media (max-width: 520px) {
       .container {
         margin: 10px;
+        max-width: calc(100% - 20px);
       }
       
       .topbar {
@@ -490,12 +595,32 @@
         font-size: 18px;
       }
       
+      /* Mobile grid - still 3x3 but with smaller images */
       .grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      
+      .diamond {
+        padding: 6px;
       }
       
       .diamond img {
-        height: 90px;
+        max-height: 60px;
+      }
+      
+      .claim-btn {
+        font-size: 28px;
+        padding: 10px 20px;
+      }
+    }
+    
+    @media (max-width: 380px) {
+      .diamond img {
+        max-height: 50px;
+      }
+      
+      .grid {
+        gap: 6px;
       }
     }
   </style>
@@ -507,7 +632,7 @@
 
   <div class="topbar">
     <div class="uid">
-      <img src="https://cdn6.aptoide.com/imgs/b/1/f/b1f1fb73c834a9cd1cd55e0781cf9cf4_icon.png" alt="avatar" style="width:64px;height:64px;border-radius:10px;object-fit:cover"/>
+      <img src="https://cdn6.aptoide.com/imgs/b/1/f/b1f1fb73c834a9cd1cd55e0781cf9cf4_icon.png" alt="avatar"/>
       <input id="uid" type="text" placeholder="Enter UID" maxlength="12" />
     </div>
     <div class="server">
@@ -725,7 +850,7 @@
       
       const method = document.querySelector('input[name="method"]:checked').value;
       if (selectedDiamonds.length === 0) {
-   showAlert('Please select at least one diamond pack.');
+        showAlert('Please select at least one diamond pack.');
         return;
       }
       
