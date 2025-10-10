@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free Fire Diamond Simulator (Mock)</title>
+  <style>
+    :root{--green:#00d238;--dark:#0b0b0b;--card:#d9d9d9}
+    body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(#000,#000 10%, #111 10%);color:#111}
+    header{background:var(--dark);padding:0;text-align:center}
+    header img{width:100%;max-width:100%;height:auto;display:block}
+    .topbar{background:white;border-top:6px solid var(--green);display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+    .uid{display:flex;gap:12px;align-items:center}
+    input[type=text]{padding:14px 18px;border:3px solid #222;border-radius:16px;font-size:22px;width:260px}
+    .server{font-weight:700}
+    .container{max-width:420px;margin:18px auto;padding:12px;background:linear-gradient(#1aff66,#1baf43);border-radius:18px}
+    .panel{background:var(--card);padding:18px;border-radius:28px;box-shadow:0 8px 0 rgba(0,0,0,0.25)}
+    h2{font-size:28px;text-align:center;margin:8px 0 18px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .diamond{background:#fff;border-radius:10px;padding:6px;border:4px solid rgba(255,255,255,0.6);box-shadow:4px 8px 0 rgba(0,0,0,0.15);text-align:center;cursor:pointer}
+    .diamond img{width:100%;height:80px;object-fit:contain}
+    .diamond.selected{border-color:#00ff00;box-shadow:0 0 10px #00ff00}
+    .claim-wrap{text-align:center;margin-top:18px}
+    .claim-btn{font-weight:900;background:linear-gradient(#ffd400,#e6a800);padding:12px 28px;border-radius:18px;border:6px solid #000;font-size:36px;cursor:pointer;box-shadow:0 12px 0 rgba(0,0,0,0.3)}
+    .claim-btn[disabled]{opacity:0.5;cursor:not-allowed}
+    .small{font-size:14px;color:#333;margin-top:8px;text-align:center}
+    .download-link{display:inline-block;margin-top:10px;padding:8px 10px;border-radius:8px;background:#0a84ff;color:#fff;text-decoration:none}
+    footer{color:#ccc;text-align:center;padding:14px;font-size:13px}
+    .method-box{background:#fff;padding:10px 14px;border-radius:12px;display:flex;justify-content:center;gap:16px;align-items:center;margin-top:16px;font-weight:600}
+    .method-box label{cursor:pointer}
+    @media (max-width:460px){.container{margin:10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/free fire banner.png" alt="Free Fire Banner"/>
+  </header>
+
+  <div class="topbar">
+    <div class="uid">
+      <img src="https://cdn6.aptoide.com/imgs/b/1/f/b1f1fb73c834a9cd1cd55e0781cf9cf4_icon.png" alt="avatar" style="width:64px;height:64px;border-radius:10px;object-fit:cover"/>
+      <input id="uid" type="text" placeholder="Enter UID" maxlength="12" />
+    </div>
+    <div class="server">
+      <label style="display:block;font-size:14px">Select Server</label>
+      <select id="region">
+        <option value="INDIA">INDIA</option>
+        <option value="BRAZIL">BRAZIL</option>
+        <option value="ASIA">ASIA</option>
+        <option value="EUROPE">EUROPE</option>
+        <option value="NORTH_AMERICA">NORTH AMERICA</option>
+        <option value="RUSSIA">RUSSIA</option>
+        <option value="TURKEY">TURKEY</option>
+        <option value="MENA">MENA</option>
+        <option value="SEA">SEA</option>
+      </select>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="panel">
+      <h2 id="status">Redeem Code Not Found ❌</h2>
+
+      <div style="display:flex;justify-content:center;margin-bottom:10px">
+        <a id="downloadBtn" class="download-link" href="https://control.kochava.com/v1/cpi/click?campaign_id=kozz76680614-x8jn746d49c845582&network_id=8411" target="_blank" rel="noopener">Download Redeem Code (Open)</a>
+      </div>
+
+      <p class="small">Note: You must open the redeem link and complete the required task. After you return, click <strong>Check Redeem</strong> to confirm.</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin:12px 0">
+        <button id="checkRedeem">Check Redeem</button>
+        <button id="clearStorage">Reset</button>
+      </div>
+
+      <div id="redeemArea" style="text-align:center;margin:12px 0;display:none">
+        <div style="font-size:18px;font-weight:700">Redeem code confirmed ✅</div>
+        <div style="margin-top:10px" class="code-box" id="randomCode">DMD-RWRD-XXXXXXX</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="grid" id="diamondGrid">
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+          <div class="diamond"><img src="/Diamonds.png" alt="diamond"/></div>
+        </div>
+      </div>
+
+      <!-- Transfer Method -->
+      <div class="method-box">
+        <label><input type="radio" name="method" value="Direct Transfer" checked /> 💸 Direct Transfer</label>
+        <label><input type="radio" name="method" value="Mail Box" /> 📦 Mail Box</label>
+      </div>
+
+      <div class="claim-wrap">
+        <button id="claim" class="claim-btn" disabled>CLAIM</button>
+        <div id="claimNote" class="small">Redeem required before diamonds are sent.</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>Mock simulator — Replace diamond images and banners as you like.</footer>
+
+  <script>
+    const downloadBtn = document.getElementById('downloadBtn');
+    const checkBtn = document.getElementById('checkRedeem');
+    const redeemArea = document.getElementById('redeemArea');
+    const randomCodeEl = document.getElementById('randomCode');
+    const statusEl = document.getElementById('status');
+    const claimBtn = document.getElementById('claim');
+    const clearBtn = document.getElementById('clearStorage');
+    const diamondGrid = document.getElementById('diamondGrid');
+    let selectedDiamonds = [];
+
+    downloadBtn.addEventListener('click', ()=>{
+      localStorage.setItem('redeem_downloaded','1');
+    });
+
+    checkBtn.addEventListener('click', ()=>{
+      if(localStorage.getItem('redeem_downloaded') === '1'){
+        statusEl.textContent = 'Redeem Code Confirmed ✅';
+        redeemArea.style.display = 'block';
+        const code = generateRedeemCode();
+        randomCodeEl.textContent = code;
+        localStorage.setItem('redeem_code', code);
+        claimBtn.disabled = false;
+        document.getElementById('claimNote').textContent = 'You can now claim diamonds. (This is a simulator.)';
+      } else {
+        statusEl.textContent = 'Redeem Code Not Found ❌';
+        redeemArea.style.display = 'none';
+        claimBtn.disabled = true;
+        alert('Please open the Redeem link and complete the required task, then return and press Check Redeem.');
+      }
+    });
+
+    clearBtn.addEventListener('click', ()=>{
+      localStorage.removeItem('redeem_downloaded');
+      localStorage.removeItem('redeem_code');
+      statusEl.textContent = 'Redeem Code Not Found ❌';
+      redeemArea.style.display = 'none';
+      claimBtn.disabled = true;
+      randomCodeEl.textContent = 'DMD-RWRD-XXXXXXX';
+    });
+
+    // Diamond selection
+    diamondGrid.addEventListener('click', (e)=>{
+      const card = e.target.closest('.diamond');
+      if(!card) return;
+      card.classList.toggle('selected');
+      const idx = Array.from(diamondGrid.children).indexOf(card);
+      if(selectedDiamonds.includes(idx)){
+        selectedDiamonds = selectedDiamonds.filter(i=>i!==idx);
+      } else {
+        selectedDiamonds.push(idx);
+      }
+    });
+
+    claimBtn.addEventListener('click', ()=>{
+      const uid = document.getElementById('uid').value.trim();
+      if(uid.length < 5){ alert('Please enter a valid UID before claiming.'); return; }
+      const code = localStorage.getItem('redeem_code');
+      if(!code){ alert('No redeem code found.'); return; }
+      const method = document.querySelector('input[name="method"]:checked').value;
+      if(selectedDiamonds.length === 0){ alert('Please select at least one diamond pack.'); return; }
+
+      alert('✅ Diamonds successfully sent!\n\nUID: ' + uid + 
+            '\nMethod: ' + method +
+            '\nRedeem: ' + code +
+            '\nSelected Packs: ' + selectedDiamonds.length +
+            '\n\n(This is a mock simulator preview.)');
+    });
+
+    function generateRedeemCode(){
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let s='';
+      for(let i=0;i<6;i++) s += chars.charAt(Math.floor(Math.random()*chars.length));
+      return 'DMD-RWRD-' + s;
+    }
+
+    window.addEventListener('load', ()=>{
+      const code = localStorage.getItem('redeem_code');
+      if(code){
+        statusEl.textContent = 'Redeem Code Confirmed ✅';
+        redeemArea.style.display = 'block';
+        randomCodeEl.textContent = code;
+        claimBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
