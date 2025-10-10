@@ -140,107 +140,118 @@
       transform: scale(1.02);
       background: white;
     }
-    
+
     .server {
-      font-weight: 700;
-      position: relative;
-      padding: 8px 15px;
-      border-radius: 12px;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: var(--transition);
-      z-index: 3;
-      backdrop-filter: blur(5px);
-    }
-    
-    .server:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
-    }
-    
-    .custom-select {
-      position: relative;
-      display: inline-block;
-      min-width: 180px;
-      z-index: 3;
-    }
-    
-    .select-selected {
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 10px;
-      border: 2px solid #222;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: var(--transition);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(5px);
-    }
-    
-    .select-selected:hover {
-      border-color: var(--green);
-      box-shadow: 0 0 8px rgba(0, 210, 56, 0.3);
-      background: white;
-    }
-    
-    .select-selected:after {
-      content: "▼";
-      font-size: 12px;
-      transition: var(--transition);
-    }
-    
-    .select-selected.select-arrow-active:after {
-      transform: rotate(180deg);
-    }
-    
-    .select-items {
-      position: absolute;
-      background-color: white;
-      top: 100%;
-      left: 0;
-      right: 0;
-      z-index: 99;
-      border-radius: 10px;
-      border: 2px solid #222;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      box-shadow: var(--shadow);
-    }
-    
-    .select-items.active {
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .select-items div {
-      padding: 10px 15px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .select-items div:hover {
-      background-color: rgba(0, 210, 56, 0.1);
-    }
-    
-    .container {
-      max-width: 480px;
-      margin: 18px auto;
-      padding: 12px;
-      background: linear-gradient(#1aff66, #1baf43);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    
-    .panel {
-      background: var(--card);
-      padding: 18px;
-      border-radius: 28px;
-      box-shadow: 0 8px 0 rgba(0,0,0,0.25);
-    }
+    font-weight: 700;
+    position: relative;
+    padding: 8px 15px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.9));
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    z-index: 1000; /* Increased z-index */
+    backdrop-filter: blur(5px);
+}
+
+.server:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    min-width: 180px;
+    z-index: 1001; /* Increased z-index */
+}
+
+.select-selected {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    border: 2px solid #222;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.select-selected:hover {
+    border-color: var(--green);
+    box-shadow: 0 0 8px rgba(0, 210, 56, 0.3);
+    background: white;
+}
+
+.select-selected:after {
+    content: "▼";
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.select-selected.select-arrow-active:after {
+    transform: rotate(180deg);
+}
+
+.select-items {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1002; /* Increased z-index - highest */
+    border-radius: 10px;
+    border: 2px solid #222;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.select-items.active {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.select-items div {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.select-items div:hover {
+    background-color: rgba(0, 210, 56, 0.1);
+}
+
+.container {
+    max-width: 480px;
+    margin: 18px auto;
+    padding: 12px;
+    background: linear-gradient(#1aff66, #1baf43);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1; /* Lower z-index for container */
+}
+
+.panel {
+    background: var(--card);
+    padding: 18px;
+    border-radius: 28px;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1; /* Lower z-index for panel */
+}
+
+/* Status element ko bhi lower z-index dena hai */
+#status {
+    position: relative;
+    z-index: 1;
+}   
+
     
     h2 {
       font-size: 28px;
@@ -702,7 +713,7 @@
     </div>
   </main>
 
-  <footer>FF Secret Diamond Store — Complete all the steps only then it will work 100%✅.</footer>
+  <footer>FF Secret Diamond Store — Complete all the steps only then it will work.</footer>
 
   <!-- Popup Overlays -->
   <div class="popup-overlay" id="alertPopup">
